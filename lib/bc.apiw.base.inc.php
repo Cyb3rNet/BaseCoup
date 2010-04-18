@@ -376,17 +376,31 @@ class CHTTPCurl
 	 *
 	 */
 	private $_aHTTPHeaders;
+
+
+	/**
+	 *
+	 */
+	private $_sUserName;
+
+
+	/**
+	 *
+	 */
+	private $_sPassword;
 	
 	
 	/**
 	 *
 	 */
-	public function __construct($sURL, $ciHTTPMethod = NHTTPMethods::iGet)
+	public function __construct($sURL, $ciHTTPMethod = NHTTPMethods::iGet, $sUserName, $sPassword)
 	{
 		$this->_ch = curl_init();
 		
 		$this->_sURL = $sURL;
 		$this->_ciHTTPMethod = $ciHTTPMethod;
+		$this->_sUserName = $sUserName;
+		$this->_sPassword = $sPassword;
 		$this->_sPost = "";
 		$this->_aHTTPHeaders = array();
 	}
@@ -434,6 +448,12 @@ class CHTTPCurl
 	 */
 	public function PrepareOptions()
 	{
+		curl_setopt($this->_ch, CURLOPT_USERPWD, $this->_sUserName.":".$this->_sPassword);
+		curl_setopt($this->_ch, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+
+		curl_setopt($this->_ch, CURLOPT_SSL_VERIFYPEER, true);
+		curl_setopt($this->_ch, CURLOPT_SSL_VERIFYHOST, true);
+
 		curl_setopt($this->_ch, CURLOPT_URL, $this->_sURL);
 		curl_setopt($this->_ch, CURLOPT_RETURNTRANSFER, 1);
 		
@@ -450,7 +470,7 @@ class CHTTPCurl
 				curl_setopt($this->_ch, CURLOPT_CUSTOMREQUEST, "DELETE");
 			break;
 			case NHTTPMethods::iPut:
-				curl_setopt($this->_ch, CURLOPT_PUT, true);
+				curl_setopt($this->_ch, CURLOPT_CUSTOMREQUEST, "PUT");
 			break;
 		}
 		

@@ -187,17 +187,23 @@ class CBasecampRequestor extends CBasecampAPICallLimitator
 	 *	
 	 */
 	private $_sURL;
+	
+	
+	/**
+	 *	
+	 */
+	private $_iContentLength;
 
 
 	/**
 	 *	
 	 */
-	public function __construct($sAccountName, $iHTTPMethod, $sRESTURL, $bHTTPS = true)
+	public function __construct($sAccountName, $sToken, $ciHTTPMethod, $sRESTURL, $bHTTPS = true)
 	{
 		$sBpDomain = "basecamphq.com";
 		
 		$this->_sAccountName = $sAccountName;
-		$this->_iHTTPMethod = $iHTTPMethod;
+		$this->_iHTTPMethod = $ciHTTPMethod;
 		$this->_sRESTURL = $sRESTURL;
 		
 		if ($bHTTPS)
@@ -207,7 +213,9 @@ class CBasecampRequestor extends CBasecampAPICallLimitator
 		
 		$this->_sURL = $this->_sProtocol."://".$this->_sAccountName.".".$sBpDomain.$this->_sRESTURL;
 
-		$this->_oConnection = new CHTTPCurl($this->_sURL, $this->_iHTTPMethod);
+		$this->_iContentLength = 0;
+
+		$this->_oConnection = new CHTTPCurl($this->_sURL, $this->_iHTTPMethod, $sToken, "X");
 		
 		parent::__construct();
 	}
@@ -218,6 +226,8 @@ class CBasecampRequestor extends CBasecampAPICallLimitator
 	 */
 	public function SetRequestObject($oRequest)
 	{
+		$this->_iContentLength = strlen((string) $oRequest);
+	
 		$this->_oConnection->SetPostString($oRequest);
 	}
 	
@@ -229,6 +239,9 @@ class CBasecampRequestor extends CBasecampAPICallLimitator
 	{
 		$this->_oConnection->AddHeader('Content-type: application/xml');
 		$this->_oConnection->AddHeader('Accept: application/xml');
+
+		if ($this->_iHTTPMethod == NHTTPMethods::iPut)
+			$this->_oConnection->AddHeader('Content-Length: '.$this->_iContentLength);
 
 		$this->_oConnection->PrepareOptions();
 		

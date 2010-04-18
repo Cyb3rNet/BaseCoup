@@ -29,6 +29,12 @@ abstract class CBasecampAPI
 	/**
 	 *
 	 */
+	private $_sToken;
+	
+	
+	/**
+	 *
+	 */
 	private $_sAccountName;
 
 
@@ -41,9 +47,10 @@ abstract class CBasecampAPI
 	/**
 	 *
 	 */
-	public function __construct($sAccountName, $bHTTPS)
+	public function __construct($sAccountName, $sToken, $bHTTPS)
 	{
 		$this->_sAccountName = $sAccountName;
+		$this->_sToken = $sToken;
 		$this->_bHTTPS = $bHTTPS;
 	}
 	
@@ -51,9 +58,9 @@ abstract class CBasecampAPI
 	/**
 	 *
 	 */
-	protected function _Call($iHTTPMethod, $sRESTURL, $oXMLRequest = BC_NULL)
+	protected function _Call($ciHTTPMethod, $sRESTURL, $oXMLRequest = BC_NULL)
 	{
-		$oRequester = new CBasecampRequestor($this->_sAccountName, $iHTTPMethod, $sRESTURL, $this->_bHTTPS);
+		$oRequester = new CBasecampRequestor($this->_sAccountName, $this->_sToken, $ciHTTPMethod, $sRESTURL, $this->_bHTTPS);
 		
 		if ($oXMLRequest != BC_NULL)
 		{

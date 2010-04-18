@@ -29,9 +29,9 @@ class CBasecampToDoListItems extends CBasecampAPI
 	/**
 	 *
 	 */
-	public function __construct($sAccountName, $bHTTPS = true)
+	public function __construct($sAccountName, $sToken, $bHTTPS = true)
 	{
-		parent::__construct($sAccountName, $bHTTPS);
+		parent::__construct($sAccountName, $sToken, $bHTTPS);
 	}	
 	
 	
