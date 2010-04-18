@@ -11,14 +11,15 @@ _printTestFileHeader($sTitle, $sFileName);
 
 
 $sAccountName = "";
+$sToken = "";
 $bHTTPS = true;
 
 
-$oTCH = new CTestClassHelper("CBasecampAPIProjects", array($sAccountName, $bHTTPS));
+$oTCH = new CTestClassHelper("CBasecampAPIProjects", array($sAccountName, $sToken, $bHTTPS));
 
 $oTCH->RegisterMethodWithReturn("ShowAll", array());
 
-//$iProjectId = 0;
+//$iProjectId = ;
 //$oTCH->RegisterMethodWithReturn("Show", array($iProjectId));
 
 

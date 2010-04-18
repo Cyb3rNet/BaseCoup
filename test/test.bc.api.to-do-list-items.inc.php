@@ -11,33 +11,35 @@ _printTestFileHeader($sTitle, $sFileName);
 
 
 $sAccountName = "";
+$sToken = "";
 $bHTTPS = true;
 
 
-$oTCH = new CTestClassHelper("CBasecampToDoListItems", array($sAccountName, $bHTTPS));
+$oTCH = new CTestClassHelper("CBasecampToDoListItems", array($sAccountName, $sToken, $bHTTPS));
 
-//$iListId = "";
+//$iListId = ;
 //$oTCH->RegisterMethodWithReturn("ShowAllFromList", array($iListId));
 
-//$iItemId
+//$iItemId = ;
 //$oTCH->RegisterMethodWithReturn("Show", array($iItemId));
 
-//$iItemId
-//$oTCH->RegisterMethodWithReturn("CompleteItem", array($iItemId));
+//$iItemId = ;
+//$oTCH->RegisterMethodNoReturn("CompleteItem", array($iItemId));
 
-//$iItemId
-//$oTCH->RegisterMethodWithReturn("UncompleteItem", array($iItemId));
+//$iItemId = ;
+//$oTCH->RegisterMethodNoReturn("UncompleteItem", array($iItemId));
 
-//$iListId
-//$oXMLRequest
-//$oTCH->RegisterMethodWithReturn("Reorder", array($iListId, $oXMLRequest));
+//$iListId = ;
+//$oXMLRequest = new CBcXOReorderToDoItems();
+//$oXMLRequest->SetOrder("1, 2, 3");
+//$oTCH->RegisterMethodNoReturn("Reorder", array($iListId, $oXMLRequest));
 
 
 $oTCH->RunTestMap();
 
 
-echo "Number of API requests: ".CBackpackAPICallLimitator::$_iCounter."<br />";
-echo "Elapsed time since first request: ".CBackpackAPICallLimitator::$_iElapsedTime."<br />";
+echo "Number of API requests: ".CBasecampAPICallLimitator::$_iCounter."<br />";
+echo "Elapsed time since first request: ".CBasecampAPICallLimitator::$_iElapsedTime."<br />";
 
 
 ?>

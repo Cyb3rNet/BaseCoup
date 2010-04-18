@@ -11,28 +11,29 @@ _printTestFileHeader($sTitle, $sFileName);
 
 
 $sAccountName = "";
+$sToken = "";
 $bHTTPS = true;
 
 
-$oTCH = new CTestClassHelper("CBasecampToDoLists", array($sAccountName, $bHTTPS));
+$oTCH = new CTestClassHelper("CBasecampToDoLists", array($sAccountName, $sToken, $bHTTPS));
 
 //$ciPartyType
 //$iResponsiblePartyId
 $oTCH->RegisterMethodWithReturn("ShowAllFromAllProjects", array());
 
-//$iProjectId
-//$csFilter
+//$iProjectId = ;
+//$csFilter = CBasecampToDoLists::sFilterAll;
 //$oTCH->RegisterMethodWithReturn("ShowAllFromProject", array($iProjectId, $csFilter));
 
-//$iListId = 0;
+//$iListId = ;
 //$oTCH->RegisterMethodWithReturn("Show", array($iListId));
 
 
 $oTCH->RunTestMap();
 
 
-echo "Number of API requests: ".CBackpackAPICallLimitator::$_iCounter."<br />";
-echo "Elapsed time since first request: ".CBackpackAPICallLimitator::$_iElapsedTime."<br />";
+echo "Number of API requests: ".CBasecampAPICallLimitator::$_iCounter."<br />";
+echo "Elapsed time since first request: ".CBasecampAPICallLimitator::$_iElapsedTime."<br />";
 
 
 ?>
